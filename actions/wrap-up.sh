@@ -7,6 +7,17 @@ set -e
 
 cd "$(git rev-parse --show-toplevel)"
 
+# Remove branch folders under reviews/ where any file was last modified 10+ days ago
+REVIEWS_DIR="reviews"
+if [[ -d "$REVIEWS_DIR" ]]; then
+  while IFS= read -r dir; do
+    # Guard: never remove reviews/ itself, only subdirs (branch folders)
+    [[ "$dir" != "$REVIEWS_DIR" && "$dir" == "$REVIEWS_DIR"/* ]] || continue
+    rm -rf "$dir"
+    echo "Removed stale review: $dir"
+  done < <(find "$REVIEWS_DIR" -type f -mtime +9 -exec dirname {} \; | sort -u)
+fi
+
 if [[ -n "$(git status --porcelain)" ]]; then
   if [[ -n "$1" ]]; then
     MSG="$*"
