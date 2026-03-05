@@ -11,6 +11,7 @@ JARVIS_ROOT="$(cd "$JARVIS_ROOT" && pwd)"
 cd "$JARVIS_ROOT"
 ./actions/wrap-up.sh || true
 
+osascript -e 'tell application "Terminal" to activate'
 echo ""
 echo "The day is over. Type 'ok, Im leaving' to close this window."
 echo ""

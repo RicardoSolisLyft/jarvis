@@ -14,16 +14,14 @@
   <array>
     <string>/usr/bin/osascript</string>
     <string>-e</string>
+    <string>tell application &quot;Terminal&quot; to activate</string>
+    <string>-e</string>
     <string>tell application &quot;Terminal&quot; to do script &quot;/Users/ricardosolis/GitHub/Jarvis/actions/end-of-day.sh&quot;</string>
   </array>
   <key>WorkingDirectory</key>
   <string>/Users/ricardosolis/GitHub/Jarvis</string>
   <key>RunAtLoad</key>
   <false/>
-  <key>StandardOutPath</key>
-  <string>/tmp/com.jarvis.end-of-day.stdout.log</string>
-  <key>StandardErrorPath</key>
-  <string>/tmp/com.jarvis.end-of-day.stderr.log</string>
   <key>StartCalendarInterval</key>
   <array>
     <dict><key>Weekday</key><integer>1</integer><key>Hour</key><integer>18</integer><key>Minute</key><integer>0</integer></dict>
