@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Show todo: read all files from todo/, generate an HTML page, open in Google Chrome.
 # Usage: show-todo.sh
-# Schedule: use actions/com.jarvis.show-todo.plist with launchd for weekdays at 9 AM.
+# Schedule: use actions/com.jarvis.show-todo.plist with launchd for weekdays at 10 AM.
 #   Install: cp actions/com.jarvis.show-todo.plist ~/Library/LaunchAgents/ && launchctl load ~/Library/LaunchAgents/com.jarvis.show-todo.plist
 #   Uninstall: launchctl unload ~/Library/LaunchAgents/com.jarvis.show-todo.plist
 
