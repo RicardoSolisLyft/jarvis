@@ -48,5 +48,7 @@ if [[ -n "$(git status --porcelain)" ]]; then
   echo "Committed: $MSG"
 else
   echo "No changes to commit."
-  exit 0
 fi
+
+git push
+echo "Pushed to remote."
