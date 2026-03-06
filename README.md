@@ -4,6 +4,13 @@
 
 ---
 
+## Quick Start
+
+- **Run an action:** `./actions/<script>.sh` from the Jarvis root (e.g. `./actions/show-todo.sh`)
+- **Schedule with launchd:** Copy a plist from `actions/` into `~/Library/LaunchAgents/`, then `launchctl load` it. Update paths in the plist if the repo moves.
+
+---
+
 ## Actions
 
 Scripts in `actions/` you can run directly or via launchd plists:
@@ -28,7 +35,26 @@ Custom commands in `.cursor/commands/` to use with the Cursor AI:
 
 | Command      | Description                                                                                                                                                                                                                              |
 | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/pr-review` | Runs a full PR review workflow: invokes `pr-review.sh`, reads the diff, then generates `relevant.md` (high-signal overview) and `issues.md` (P0/P1/P2 issues) in the review directory. Usage: `/pr-review <repo> <branch> [base-branch]` |
+| `/pr-review` | Runs a full PR review workflow: invokes `pr-review.sh`, reads the diff, then generates `relevant.md` (high-signal overview) and `issues.md` (P0/P1/P2 issues) in the review directory. Optional flags: **deploy-test** (deploy rider app to device; use `-t <device_id>` when multiple devices) and **snapshot-test** (run `snapshot_ads.sh`). Usage: `/pr-review <repo> <branch> [base-branch]` |
 | `/wrap-up`   | Executes `wrap-up.sh` to commit changes and prune stale reviews.                                                                                                                                                                         |
 
+---
+
+## Scheduled Jobs (launchd)
+
+| Plist                    | Schedule            | Action                                      |
+| ------------------------ | ------------------- | ------------------------------------------- |
+| `com.jarvis.show-todo.plist` | Weekdays 10 AM      | Opens `todo/index.md` in your markdown viewer |
+| `com.jarvis.end-of-day.plist` | Weekdays 6 PM       | Runs wrap-up, then prompts to close Terminal |
+
+Install: `cp actions/<plist> ~/Library/LaunchAgents/ && launchctl load ~/Library/LaunchAgents/<plist>`  
+Uninstall: `launchctl unload ~/Library/LaunchAgents/<plist>`
+
+---
+
+## Project Structure
+
+- **`todo/`** — Task list; `show-todo.sh` opens `todo/index.md`.
+- **`notes/`** — Meeting notes and reference material.
+- **`reviews/`** — PR review output (`full-changes.md`, `relevant.md`, `issues.md`) per repo and branch.
 
