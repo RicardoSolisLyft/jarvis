@@ -42,11 +42,15 @@ else
 fi
 
 # Run bazel clean in the instant-android project (blocks until finished; may take several minutes)
-INSTANT_ANDROID="/Users/ricardosolis/Projects/instant-android"
+INSTANT_ANDROID="/Users/ricardosolis/GitHub/Code/instant-android"
+ADS_MODULE="/instant-features/rider/active-ride/display-components/panel/ads/plugins"
 if [[ -d "$INSTANT_ANDROID" ]]; then
   echo "Running 'bazel clean' in $INSTANT_ANDROID... (this may take several minutes)"
   (cd "$INSTANT_ANDROID" && bazel clean)
-  echo "Done."
+  # Build the ads/plugin module only if the cache was actually cleared
+  echo "Building ads/plugin module..."
+  (cd "$INSTANT_ANDROID$ADS_MODULE" && bazel build)
+  echo "Build complete."
 else
   echo "Skipping bazel clean: $INSTANT_ANDROID not found."
 fi

@@ -7,6 +7,7 @@
 ## Quick Start
 
 - **Run an action:** `./actions/<script>.sh` from the Jarvis root (e.g. `./actions/show-todo.sh`)
+- **CLI from anywhere:** Add Jarvis root to PATH, then run `jarvis agent "your prompt"` (see [Jarvis CLI](#jarvis-cli) below)
 - **Schedule with launchd:** Copy a plist from `actions/` into `~/Library/LaunchAgents/`, then `launchctl load` it. Update paths in the plist if the repo moves.
 
 ---
@@ -18,6 +19,7 @@ Scripts in `actions/` you can run directly or via launchd plists:
 
 | Action                 | Description                                                                                                                                                              |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `agent.sh`             | Runs Cursor CLI agent with a prompt. Requires Cursor CLI (`curl https://cursor.com/install -fsS \| bash`). Usage: `agent.sh "prompt"` or `jarvis agent "prompt"`.         |
 | `clear-bazel-cache.sh` | Clears Bazel cache (including `~/.cache/bazel`, `~/.bazel_cache`, `~/Library/Caches/Bazel`), quits Android Studio if running, and runs `bazel clean` in instant-android. |
 | `end-of-day.sh`        | Runs wrap-up to commit changes, then prompts you to type *"ok, Im leaving"* to close the Terminal window. Meant for launchd at 6 PM on weekdays.                         |
 | `pr-review.sh`         | Checks out the given branch in a repo, generates a diff against the base branch, and writes `full-changes.md` under `reviews/<repo>/<branch>/`.                          |
@@ -28,15 +30,33 @@ Scripts in `actions/` you can run directly or via launchd plists:
 
 ---
 
-## Cursor Commands
+## Jarvis CLI
 
-Custom commands in `.cursor/commands/` to use with the Cursor AI:
+Add the Jarvis root to your PATH to run `jarvis` from anywhere:
+
+```bash
+# In ~/.zshrc or ~/.bashrc
+export PATH="$HOME/GitHub/Jarvis:$PATH"
+```
+
+Then:
+
+```bash
+jarvis agent "refactor the auth module to use JWT"
+jarvis agent --plan "add authentication"  # plan first, then execute
+```
+
+---
+
+## Cursor Skills
+
+Project skills in `.cursor/skills/` teach the agent how to run Jarvis workflows. They apply when you ask for a PR review, wrap-up, or similar tasks.
 
 
-| Command      | Description                                                                                                                                                                                                                                                                                                                                        |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/pr-review` | Runs a full PR review workflow: invokes `pr-review.sh`, reads the diff, then generates `relevant.md` (high-signal overview) and `issues.md` (P0/P1/P2 issues) in the review directory. Optional flags: **deploy-test** (deploy rider app to device; use `-t <device_id>` when multiple devices). Usage: `/pr-review <repo> <branch> [base-branch]` `[deploy-test]` `[-t <device_id>]` |
-| `/wrap-up`   | Executes `wrap-up.sh` to commit changes and prune stale reviews.                                                                                                                                                                                                                                                                                   |
+| Skill       | Description                                                                                                                                                                                                                                                                                                                                        |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pr-review` | Runs a full PR review workflow: invokes `pr-review.sh`, reads the diff, then generates `relevant.md` (high-signal overview) and `issues.md` (P0/P1/P2 issues) in the review directory. Optional flags: **deploy-test** (deploy rider app to device; use `-t <device_id>` when multiple devices). Usage: `<repo> <branch> [base-branch]` `[deploy-test]` `[-t <device_id>]` |
+| `wrap-up`   | Executes `wrap-up.sh` to commit changes and prune stale reviews.                                                                                                                                                                                                                                                                                   |
 
 
 ---

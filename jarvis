@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Jarvis CLI dispatcher. Run from anywhere once Jarvis root is on PATH.
+# Usage: jarvis <command> [args...]
+#   jarvis agent "your prompt here"  — run Cursor CLI agent with the prompt
+
+set -e
+
+JARVIS_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ACTIONS="$JARVIS_ROOT/actions"
+
+cmd="${1:-}"
+shift || true
+
+case "$cmd" in
+  agent)
+    exec "$ACTIONS/agent.sh" "$@"
+    ;;
+  "")
+    echo "Usage: jarvis <command> [args...]" >&2
+    echo "" >&2
+    echo "Commands:" >&2
+    echo "  agent \"prompt\"   Run Cursor CLI agent with the given prompt" >&2
+    echo "" >&2
+    echo "Example: jarvis agent \"refactor the auth module to use JWT\"" >&2
+    exit 1
+    ;;
+  *)
+    echo "Unknown command: $cmd" >&2
+    echo "Run 'jarvis' for usage." >&2
+    exit 1
+    ;;
+esac
