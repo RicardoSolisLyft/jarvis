@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # End-of-day: run wrap-up.sh, then prompt to type "ok, Im leaving" to close the window.
-# Schedule: use actions/com.jarvis.end-of-day.plist with launchd for weekdays at 6 PM.
+# Schedule: use actions/com.jarvis.end-of-day.plist with launchd for weekdays at 4 PM.
 #   Install: cp actions/com.jarvis.end-of-day.plist ~/Library/LaunchAgents/ && launchctl load ~/Library/LaunchAgents/com.jarvis.end-of-day.plist
 #   Uninstall: launchctl unload ~/Library/LaunchAgents/com.jarvis.end-of-day.plist
 

@@ -21,7 +21,7 @@ Scripts in `actions/` you can run directly or via launchd plists:
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `agent.sh`             | Runs Cursor CLI agent with a prompt. Requires Cursor CLI (`curl https://cursor.com/install -fsS \| bash`). Usage: `agent.sh "prompt"` or `jarvis agent "prompt"`.         |
 | `clear-bazel-cache.sh` | Clears Bazel cache (including `~/.cache/bazel`, `~/.bazel_cache`, `~/Library/Caches/Bazel`), quits Android Studio if running, and runs `bazel clean` in instant-android. |
-| `end-of-day.sh`        | Runs wrap-up to commit changes, then prompts you to type *"ok, Im leaving"* to close the Terminal window. Meant for launchd at 6 PM on weekdays.                         |
+| `end-of-day.sh`        | Runs wrap-up to commit changes, then prompts you to type *"ok, Im leaving"* to close the Terminal window. Meant for launchd at 4 PM on weekdays.                         |
 | `pr-review.sh`         | Checks out the given branch in a repo, generates a diff against the base branch, and writes `full-changes.md` under `reviews/<repo>/<branch>/`.                          |
 | `show-todo.sh`         | Opens `todo/index.md` in your default markdown viewer. Meant for launchd at 10 AM on weekdays.                                                                           |
 | `snapshot_ads.sh`      | Runs snapshot tests in `instant-android` ads/plugins, extracts outputs from the test zip, and reveals the results in Finder.                                             |
@@ -67,7 +67,7 @@ Project skills in `.cursor/skills/` teach the agent how to run Jarvis workflows.
 | Plist                         | Schedule       | Action                                        |
 | ----------------------------- | -------------- | --------------------------------------------- |
 | `com.jarvis.show-todo.plist`  | Weekdays 10 AM | Opens `todo/index.md` in your markdown viewer |
-| `com.jarvis.end-of-day.plist` | Weekdays 6 PM  | Runs wrap-up, then prompts to close Terminal  |
+| `com.jarvis.end-of-day.plist` | Weekdays 4 PM  | Runs wrap-up, then prompts to close Terminal  |
 
 
 Install: `cp actions/<plist> ~/Library/LaunchAgents/ && launchctl load ~/Library/LaunchAgents/<plist>`  
