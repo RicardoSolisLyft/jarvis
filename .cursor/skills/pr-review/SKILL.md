@@ -35,8 +35,10 @@ Run a full PR review workflow for a repository and branch. The user provides **r
        - **P1 (High):** Important bugs, maintainability, design concerns.
        - **P2 (Low):** Style, nitpicks, minor improvements.
 
-5. **Confirm**
-   - Report completion and paths to `relevant.md` and `issues.md`.
+5. **Open and focus**
+   - Open the generated files in Cursor and bring focus to this window:
+     - Run: `open -a "Cursor" "$REVIEW_DIR/relevant.md" "$REVIEW_DIR/issues.md"`
+   - Then report completion and paths to `relevant.md` and `issues.md`.
 
 6. **Deploy-test (optional)**
    - If user included **deploy-test**, deploy rider app to Android device.
