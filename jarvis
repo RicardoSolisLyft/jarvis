@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Jarvis CLI dispatcher. Run from anywhere once Jarvis root is on PATH.
 # Usage: jarvis <command> [args...]
-#   jarvis agent "your prompt here"  — run Cursor CLI agent with the prompt
 
 set -e
 
@@ -11,22 +10,86 @@ ACTIONS="$JARVIS_ROOT/actions"
 cmd="${1:-}"
 shift || true
 
+show_help() {
+  cat <<'HELP'
+Usage: jarvis <command> [args...]
+
+Commands:
+
+  agent "prompt" [--mode ask|plan] [-c] ...
+    Run Cursor CLI agent with the given prompt. Requires Cursor CLI installed.
+    Examples:
+      jarvis agent "refactor the auth module"
+      jarvis agent --plan "add JWT auth"
+
+  wrap-up [message]
+    Commit all changes and push. If message is omitted, generates a summary from the changes.
+    Also prunes stale reviews (reviews/ folders older than 2 days).
+    Example:
+      jarvis wrap-up
+      jarvis wrap-up "Fix login bug"
+
+  pr-review <repo> <branch> [base-branch]
+    Checkout branch, create review dir, write full diff to full-changes.md.
+    repo: repo name (e.g. my-app) or path; names resolve to ~/GitHub/Code/<repo>
+    base-branch: optional, default main
+    Example:
+      jarvis pr-review my-app feature/add-auth
+
+  show-todo
+    Open the main todo markdown file in the default viewer.
+
+  clear-bazel-cache
+    Clear all Bazel cache directories. Closes Android Studio first if running.
+
+  snapshot-ads
+    Run snapshot tests in ads/plugins, extract outputs, reveal in Finder.
+
+  end-of-day
+    Run wrap-up, then prompt to type "ok, Im leaving" to close the window.
+
+  help
+    Show this usage and examples for all commands.
+HELP
+}
+
 case "$cmd" in
   agent)
     exec "$ACTIONS/agent.sh" "$@"
     ;;
+  wrap-up)
+    cd "$JARVIS_ROOT"
+    exec "$ACTIONS/wrap-up.sh" "$@"
+    ;;
+  pr-review)
+    exec "$ACTIONS/pr-review.sh" "$@"
+    ;;
+  show-todo)
+    exec "$ACTIONS/show-todo.sh" "$@"
+    ;;
+  clear-bazel-cache)
+    exec "$ACTIONS/clear-bazel-cache.sh" "$@"
+    ;;
+  snapshot-ads)
+    exec "$ACTIONS/snapshot_ads.sh" "$@"
+    ;;
+  end-of-day)
+    exec "$ACTIONS/end-of-day.sh" "$@"
+    ;;
+  help|--help|-h)
+    show_help
+    ;;
   "")
     echo "Usage: jarvis <command> [args...]" >&2
     echo "" >&2
-    echo "Commands:" >&2
-    echo "  agent \"prompt\"   Run Cursor CLI agent with the given prompt" >&2
+    echo "Commands: agent, wrap-up, pr-review, show-todo, clear-bazel-cache, snapshot-ads, end-of-day, help" >&2
     echo "" >&2
-    echo "Example: jarvis agent \"refactor the auth module to use JWT\"" >&2
+    echo "Run 'jarvis help' for full usage and examples." >&2
     exit 1
     ;;
   *)
     echo "Unknown command: $cmd" >&2
-    echo "Run 'jarvis' for usage." >&2
+    echo "Run 'jarvis help' for usage." >&2
     exit 1
     ;;
 esac
