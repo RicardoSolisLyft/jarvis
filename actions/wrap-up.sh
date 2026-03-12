@@ -5,6 +5,7 @@
 
 set -e
 
+INFO_PREFIX=$'\033[33mInfo:\033[0m '
 cd "$(git rev-parse --show-toplevel)"
 
 # Remove branch folders under reviews/ where any file was last modified 2+ days ago
@@ -14,7 +15,7 @@ if [[ -d "$REVIEWS_DIR" ]]; then
     # Guard: never remove reviews/ itself, only subdirs (branch folders)
     [[ "$dir" != "$REVIEWS_DIR" && "$dir" == "$REVIEWS_DIR"/* ]] || continue
     rm -rf "$dir"
-    echo "Removed stale review: $dir"
+    echo "${INFO_PREFIX}Removed stale review: $dir"
   done < <(find "$REVIEWS_DIR" -type f -mtime +1 -exec dirname {} \; | sort -u)
 fi
 
@@ -23,7 +24,7 @@ NOTES_DIR="notes"
 if [[ -d "$NOTES_DIR" ]]; then
   while IFS= read -r f; do
     rm -f "$f"
-    echo "Removed stale note: $f"
+    echo "${INFO_PREFIX}Removed stale note: $f"
   done < <(find "$NOTES_DIR" -type f -mtime +10 ! -name 'index.md')
 fi
 
@@ -54,10 +55,10 @@ if [[ -n "$(git status --porcelain)" ]]; then
   fi
   git add -A
   git commit -m "$MSG"
-  echo "Committed: $MSG"
+  echo "${INFO_PREFIX}Committed: $MSG"
 else
-  echo "No changes to commit."
+  echo "${INFO_PREFIX}No changes to commit."
 fi
 
 git push
-echo "Pushed to remote."
+echo "${INFO_PREFIX}Pushed to remote."

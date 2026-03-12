@@ -9,8 +9,9 @@
 
 set -e
 
+INFO_PREFIX=$'\033[33mInfo:\033[0m '
 if ! command -v agent &>/dev/null; then
-  echo "Cursor CLI not found. Install with: curl https://cursor.com/install -fsS | bash" >&2
+  echo "${INFO_PREFIX}Cursor CLI not found. Install with: curl https://cursor.com/install -fsS | bash" >&2
   exit 1
 fi
 

@@ -7,13 +7,14 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JARVIS_ROOT="${JARVIS_ROOT:-$(git -C "$SCRIPT_DIR/.." rev-parse --show-toplevel 2>/dev/null || echo "$SCRIPT_DIR/..")}"
 JARVIS_ROOT="$(cd "$JARVIS_ROOT" && pwd)"
+INFO_PREFIX=$'\033[33mInfo:\033[0m '
 
 cd "$JARVIS_ROOT"
 ./actions/wrap-up.sh || true
 
 osascript -e 'tell application "Terminal" to activate'
 echo ""
-echo "The day is over. Type 'ok, Im leaving' to close this window."
+echo "${INFO_PREFIX}The day is over. Type 'ok, Im leaving' to close this window."
 echo ""
 
 while true; do
@@ -23,5 +24,5 @@ while true; do
     osascript -e 'tell application "Terminal" to close front window'
     exit 0
   fi
-  echo "nuh uh, try again"
+  echo "${INFO_PREFIX}nuh uh, try again"
 done
