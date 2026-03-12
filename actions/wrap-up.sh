@@ -18,6 +18,15 @@ if [[ -d "$REVIEWS_DIR" ]]; then
   done < <(find "$REVIEWS_DIR" -type f -mtime +1 -exec dirname {} \; | sort -u)
 fi
 
+# Remove note files older than 10 days (keep index.md)
+NOTES_DIR="notes"
+if [[ -d "$NOTES_DIR" ]]; then
+  while IFS= read -r f; do
+    rm -f "$f"
+    echo "Removed stale note: $f"
+  done < <(find "$NOTES_DIR" -type f -mtime +10 ! -name 'index.md')
+fi
+
 if [[ -n "$(git status --porcelain)" ]]; then
   if [[ -n "$1" ]]; then
     MSG="$*"
