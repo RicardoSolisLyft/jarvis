@@ -15,9 +15,25 @@
 ## Vertical Video Extension CPR (2026-03-11)
 
 
-| Done | Task                                                                              | Due        | Priority |
-| ---- | --------------------------------------------------------------------------------- | ---------- | -------- |
-|      | Get ride stage change interruption event PR merged                                | 2026-03-18 | P1       |
-|      | Validate vertical video-to-poster transition when Fernando shares staging offload | 2026-03-22 |          |
+| ID  | Task                                                                              | Due        | Priority |
+| --- | --------------------------------------------------------------------------------- | ---------- | -------- |
+| 8   | Get ride stage change interruption event PR merged                                | 2026-03-18 | P1       |
+| 9   | Validate vertical video-to-poster transition when Fernando shares staging offload | 2026-03-22 |          |
+
+
+## Observability Discussion (2026-03-12)
+
+
+| ID  | Task                                                                                                      | Due        | Priority |
+| --- | --------------------------------------------------------------------------------------------------------- | ---------- | -------- |
+| 10  | Implement client-side normalization for analytics events (per Eugene's audit findings) for M3 cardinality | 2026-03-19 | P1       |
+| 11  | Review event audit for ad formats you own (e.g. SmartCard) and implement any required normalization       | 2026-03-23 | P2       |
+
+
+## Ads Mobile Community - Android (2026-03-12)
+
+| ID  | Task                                                                                                    | Due        | Priority |
+| --- | ------------------------------------------------------------------------------------------------------- | ---------- | -------- |
+| 12  | Discuss merger of feature-specific skills (e.g. ad format skill) with mobile infra or Denise Nikki       | 2026-03-19 |          |
 
 
