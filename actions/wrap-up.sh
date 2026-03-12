@@ -5,7 +5,7 @@
 
 set -e
 
-INFO_PREFIX=$'\033[33mInfo:\033[0m '
+INFO_PREFIX=$'\033[33mJarvis-INFO:\033[0m '
 cd "$(git rev-parse --show-toplevel)"
 
 # Remove branch folders under reviews/ where any file was last modified 2+ days ago

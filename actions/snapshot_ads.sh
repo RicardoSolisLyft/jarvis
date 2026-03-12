@@ -4,7 +4,7 @@
 
 set -e
 
-INFO_PREFIX=$'\033[33mInfo:\033[0m '
+INFO_PREFIX=$'\033[33mJarvis-INFO:\033[0m '
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 INSTANT_ANDROID="${INSTANT_ANDROID:-/Users/ricardosolis/GitHub/Code/instant-android}"
 OUTPUTS_ZIP="${INSTANT_ANDROID}/bazel-testlogs/instant-features/rider/active-ride/display-components/panel/ads/plugins/test/test.outputs/outputs.zip"

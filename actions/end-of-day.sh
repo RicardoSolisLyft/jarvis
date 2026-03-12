@@ -7,7 +7,7 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JARVIS_ROOT="${JARVIS_ROOT:-$(git -C "$SCRIPT_DIR/.." rev-parse --show-toplevel 2>/dev/null || echo "$SCRIPT_DIR/..")}"
 JARVIS_ROOT="$(cd "$JARVIS_ROOT" && pwd)"
-INFO_PREFIX=$'\033[33mInfo:\033[0m '
+INFO_PREFIX=$'\033[33mJarvis-INFO:\033[0m '
 
 cd "$JARVIS_ROOT"
 ./actions/wrap-up.sh || true

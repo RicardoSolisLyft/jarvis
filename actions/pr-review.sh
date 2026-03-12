@@ -8,7 +8,7 @@
 
 set -e
 
-INFO_PREFIX=$'\033[33mInfo:\033[0m '
+INFO_PREFIX=$'\033[33mJarvis-INFO:\033[0m '
 if [[ $# -lt 2 ]]; then
   echo "${INFO_PREFIX}Usage: $0 <repo> <branch> [base-branch]" >&2
   echo "${INFO_PREFIX}  repo: repo name or path (names resolve to ~/GitHub/Code/<repo>)" >&2
